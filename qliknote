@@ -1,0 +1,233 @@
+
+????????
+Colormix1((count([GLOBALEVENTID])-$(=min(aggr( count([GLOBALEVENTID]),EventRootName))))/$(=(max(aggr( count([GLOBALEVENTID]),EventRootName))
+-min(aggr(count([GLOBALEVENTID]), EventRootName)))),rgb(239,126,0),rgb(239,6,0))
+
+colormix2(
+(((sum([TradeValueMil]))-$(=min(aggr( sum([TradeValueMil]), cmdCode))))/$(=(max(aggr( sum([TradeValueMil]),cmdCode))
+-min(aggr( sum([TradeValueMil]), cmdCode)))))*2-1,
+rgb(162,221,249),rgb(47,95,123),rgb(47,95,123))
+
+
+IF(QuadClass = '2', rgb(0,239,66), if(QuadClass = '1',rgb(0,173,239),if(QuadClass = '3', rgb(239,186,0),rgb(239,66,0))))
+
+Date(Date#(Avg(DATEADDED),'YYYYMMDD'),'DD-MMM-YYYY') 
+
+
+avg({$<DATEADDED={$(certainday)}>}NumMentions)
+
+ColorMix2((((avg({$<DATEADDED={$(certainday)}>}[GoldsteinScale])+10)/20)*2-1),rgb(239,66,0),rgb(219,219,219),rgb(0,239,66))
+
+ColorMix2((Sum(TradeValueMil)),rgb(239,66,0),rgb(219,219,219),rgb(0,239,66))
+
+[Country_codebook]:
+LOAD [@1] AS [ActionGeo_CountryCode],
+	[@2] AS [ActionGeo_CountryName]
+FROM [lib://GDELT viz/Country_codebook.csv]
+(txt, codepage is 1252, no labels, delimiter is ',', msq, header is 1 lines);
+
+Maximun data of all records: Let certainday  = '=Max({1} DATEADDED)';
+GeoMakePoint(ActionGeo_Lat,ActionGeo_Long)
+Date(Date#(Avg({$<DATEADDED={$(certainday)}>}DATEADDED),'YYYYMMDD'),'DD-MMM-YYYY') 
+
+Avg({<Indicator={"Agriculture"},Period={"2001-2010"}>}Value)
+
+Sum([recipient-country-percentage] * [total-Commitment]/100)
+
+if(sum([total-Commitment])<1000,sum([total-Commitment]),
+if(sum([total-Commitment])<1000000,Num(Sum([total-Commitment])/1000, '#,##0.00')&'K',
+if(sum([total-Commitment])<1000000000,Num(Sum([total-Commitment])/1000000, '#,##0.00')&'M',
+if(sum([total-Commitment])<1000000000000,Num(Sum([total-Commitment])/1000000000, '#,##0.00')&'B',
+if(sum([total-Commitment])<1000000000000000,Num(Sum([total-Commitment])/1000000000000, '#,##0.00')&'T')))))
+
+pick(match([reporting-org],'Fixed-Term','Permanent/Continuing','Temporary'),rgb(137,188,0),rgb(0,137,188),rgb(188,51,0))
+
+pick(match([Reporting Organization],'UNICEF','United Nations Development Programme',
+'United Nations Office for Project Services','United Nations Population Fund','World Food Programme','World Bank Group'
+),rgb(47,95,123),rgb(27,117,187),rgb(105,152,201),rgb(0,156,219),rgb(42,168,224),rgb(162,221,249))
+
+UNICEF rgb(28, 171, 226)
+United Nations Development Programme
+United Nations Office for Project Services
+United Nations Population Fund
+World Food Programme rgb(0, 136, 255)
+World Bank Group 
+
+
+sum({$<[participating-org-type (Funding)]={'Multilateral','Government','Private Sector','Foundation','Academic, Training and Research'}>}[total-Commitment])
+
+Aggr(Rank(Sum([NumMentions])), [NumMentions]) <= 1
+
+rgb(105,152,201)
+rgb(247,147,33)
+
+rgb(0,156,219)
+rgb(254,194,64)
+rgb(242,99,92)
+rgb(27,163,151)
+rgb(109,105,176)
+rgb(162,221,249)
+rgb(42,168,224)
+rgb(47,95,123)
+
+pick(match([rgDesc ],'Import','Expot'),rgb(137,188,0),rgb(188,51,0))
+IF([rgDesc]= 'Import', rgb(0,239,66), rgb(239,66,0))
+
+
+
+Sum({<[Report - Date]={"$(=Max({<[Report - Date]>}[Report - Date]))"}>}[Pers - Count])
+
+
+var_dm,var_dd,var_ha,var_la,var_lnl,var_lns1,var_lns2,var_net,var_qa,var_san,var_ss,var_ssf,var_usd
+
+
+
+pick(match([API Status],'API Not Required','API In Force','API Anticipated','API Auth, Not In Force'),rgb(0,156,219),rgb(254,194,64),rgb(242,99,92),rgb(27,163,151))
+
+
+
+If(getselectedcount(Year1)=1,
+
+ if(Min ( Aggr ( Avg(
+	(
+    	Value1-$(=(aggr(min({1} TOTAL Value1),SeriesName)))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value1),SeriesName)-aggr(min({1} TOTAL Value1),SeriesName)
+    )))
+   )
+ , GoalId ))
+ >
+ Min ( Aggr ( Avg(
+	(
+    	Value2-$(=(aggr(min({1} TOTAL Value2),SeriesName)))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value2),SeriesName)-aggr(min({1} TOTAL Value2),SeriesName)
+    )))
+   )
+ , GoalId ))
+ ,
+  Min ( Aggr ( Avg(
+	(
+    	Value2-$(=(aggr(min({1} TOTAL Value2),SeriesName) ))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value2),SeriesName)-aggr(min({1} TOTAL Value2),SeriesName)
+    )))
+   )
+ , GoalId ))
+ ,
+ Min ( Aggr ( Avg(
+	(
+    	Value1-$(=(aggr(min({1} TOTAL Value1),SeriesName) ))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value1),SeriesName)-aggr(min({1} TOTAL Value1),SeriesName)
+    )))
+   )
+ , GoalId ))
+ )
+ ,
+ 
+ if(Min ( Aggr ( Avg(
+	(
+    	Value1-$(=(aggr(min({1} TOTAL Value1),SeriesName)))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value1),SeriesName)-aggr(min({1} TOTAL Value1),SeriesName)
+    )))
+   )
+ , Year1 ))
+ >
+ Min ( Aggr ( Avg(
+	(
+    	Value2-$(=(aggr(min({1} TOTAL Value2),SeriesName)))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value2),SeriesName)-aggr(min({1} TOTAL Value2),SeriesName)
+    )))
+   )
+ , Year2 ))
+ ,
+  Min ( Aggr ( Avg(
+	(
+    	Value2-$(=(aggr(min({1} TOTAL Value2),SeriesName) ))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value2),SeriesName)-aggr(min({1} TOTAL Value2),SeriesName)
+    )))
+   )
+ , Year2 ))
+ ,
+ Min ( Aggr ( Avg( 
+	(
+    	Value1-$(=(aggr(min({1} TOTAL Value1),SeriesName) ))
+    )
+    /
+    ($(=(
+    	aggr(max({1} TOTAL Value1),SeriesName)-aggr(min({1} TOTAL Value1),SeriesName)
+    )))
+   )
+ , Year1 ))
+ )
+ )-0.0000000001
+
+
+GetSelectedCount($(IndicatorSubNum & ' - ' & SeriesName))=1
+and
+$(vIndicatorVariable)>0
+
+
+
+http://devtest.dfs-f01point-81.dpko.un.org/
+
+
+
+//  change color of stacked bar
+Experts on Mission (Female)
+Formed Police Units (Female)
+Individual Police (Female)
+{<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}
+pick(match(valuelist( 'Experts on Mission (Male)','Experts on Mission (Female)','Formed Police Units Total'),'Experts on Mission (Male)','Experts on Mission (Female)','Formed Police Units Total'),
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Experts_on_Mission_Male),
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Experts_on_Mission_Female),
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Formed_Police_Units_Total)
+)
+
+
+pick(match(valuelist( 'Experts on Mission', 'Formed Police Units', 'Individual Police'), 'Experts on Mission', 'Formed Police Units', 'Individual Police'),
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Experts_on_Mission_Male,
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Experts_on_Mission_Female,
+Sum({<[ Date]={"$(=Max({<[Date]>}[Date]))"}>}Individual_Police_Female)
+
+)
+
+pick(match(valuelist( 'Male' , 'Female'),'Male','Female'),
+rgb(0,156,219),rgb(242,99,92)
+)
+
+// excluding data when loading
+[by_country (1)]:
+LOAD 
+[recipient-country-code] as country_code,
+	[recipient-country],
+	[recipient-country-percentage],
+	[iati-identifier]
+ FROM [lib://data/by_country (1).csv]
+(txt, codepage is 1252, embedded labels, delimiter is ',', msq)
+
+
+//where ([recipient-country] <>'Spain')
+;
+
+
+# GetFieldSelections not work
+if(mid(GetCurrentSelections(),index(GetCurrentSelections(),'SeriesName')+12,48)='Gender parity index of the gross enrolment ratio',1,0
