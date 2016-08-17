@@ -1,0 +1,50 @@
+$ cd /directory
+$ git init
+
+$  git config --global user.name lemonsong
+$ git config --global user.email yilin19920089@sina.com
+$ git config --global color.ui true
+
+# Clone the boilerplate to local desktop
+$ git clone https://lemonsong@bitbucket.org/oictviz/unviz-boilerplate.git
+
+# Mannually change the name to a new one
+# go to the folder
+$ cd GDELTviz/
+
+# Initial it
+# if it does not work. Mannually delete the hidden .git folder
+$ git init
+Reinitialized existing Git repository in 
+
+# 
+$ git remote add origin https://lemonsong@bitbucket.org/oictviz/gdeltviz.git
+
+
+# add file. . means all file
+$ git add .
+
+# Commit change
+$ git commit -m "fist commit"
+
+# Push change
+$ git push origin master
+fatal: unable to access 'https://lemonsong@bitbucket.org/oictviz/gdeltviz.git/': SSL certificate problem: unable to get local issuer certificate
+
+# Disable the SSL to solve the error
+git config http.sslVerify false
+
+# Push change
+$ git push -u origin --all
+$ git push -u origin --tags
+
+
+#It seems like the commit size was too big (default is < 1Mbyte). Resolved it with rising the limit up to 500Mbytes:
+git config --global http.postBuffer 524288000
+
+
+
+# 
+$ git add index.html
+$ git commit -m "test"
+$ git push origin master
