@@ -1,0 +1,2 @@
+打开写入权限	sudo chown -R jmartinez-navarrete /home/jmartinez-navarrete
+解压	tar -xvzf community_images.tar.gz
